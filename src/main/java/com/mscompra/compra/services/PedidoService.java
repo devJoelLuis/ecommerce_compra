@@ -10,10 +10,14 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+    @Autowired
+    private ProducerService producerService;
 
     public Pedido salvar(Pedido pedido) {
         pedido.setId(null);
-        return pedidoRepository.save(pedido);
+        pedido = pedidoRepository.save(pedido);
+        producerService.enviarPedido(pedido);
+        return pedido;
     }
 
 }
